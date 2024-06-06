@@ -2,8 +2,6 @@ export type Weather = "sunny" | "rainy" | "cloudy" | "windy" | "stormy";
 
 export type Visibility = "great" | "good" | "ok" | "poor";
 
-export type Gender = "male" | "female" | "other";
-
 export interface DiaryEntry {
   id: number;
   date: string;
@@ -23,8 +21,12 @@ export interface PatientEntry {
   name: string;
   dateOfBirth: string;
   ssn: string;
-  gender: Gender;
+  gender: string;
   occupation: string;
 }
 
+export type NonSensitivePatientEntry = Omit<PatientEntry, "ssn">;
+
 export type NonSensitiveDiaryEntry = Omit<DiaryEntry, "comment">;
+
+export type NewDiaryEntry = Omit<DiaryEntry, "id">;
