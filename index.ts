@@ -1,6 +1,8 @@
 import express from "express";
 import cors from "cors";
 
+import diaryRouter from "./routes/diaries";
+
 const app = express();
 
 // middleware
@@ -18,6 +20,8 @@ app.get("/api/ping", (_req, res) => {
   console.log("someobody pinged here");
   res.send("pong");
 });
+
+app.use("/api/diaries", diaryRouter);
 
 // start server
 app.listen(PORT, () => {
