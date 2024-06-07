@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
-import { NewDiaryEntry, Weather, Visibility } from "./types";
+import { NewDiaryEntry, Weather, Visibility, NewPatientEntry } from "./types";
 
 // validation functions //
 const isString = (text: unknown): text is string => {
@@ -50,6 +50,13 @@ const parseVisibility = (visibility: unknown): Visibility => {
   return visibility;
 };
 
+const parseStringEntry = (field: unknown): string => {
+  if (!field || !isString(field)) {
+    throw new Error("Incorrect string field:" + field);
+  }
+  return field.trim();
+};
+
 // Create new diary entry
 const toNewDiaryEntry = (object: unknown): NewDiaryEntry => {
   if (!object || typeof object !== "object") {
@@ -75,4 +82,32 @@ const toNewDiaryEntry = (object: unknown): NewDiaryEntry => {
   throw new Error("Incorrect data: some fields are missing");
 };
 
-export default toNewDiaryEntry;
+const toNewPatientEntry = (object: unknown): NewPatientEntry => {
+  if (!object || typeof object != "object") {
+    throw new Error(`Incorrect or missing patient data: ${object}`);
+  }
+
+  if (
+    "name" in object &&
+    "dateOfBirth" in object &&
+    "ssn" in object &&
+    "gender" in object &&
+    "occupation" in object
+  ) {
+    const newEntry: NewPatientEntry = {
+      name: parseStringEntry(object.name),
+      dateOfBirth: parseDate(object.dateOfBirth),
+      ssn: parseStringEntry(object.ssn),
+      gender: parseStringEntry(object.gender),
+      occupation: parseStringEntry(object.occupation),
+    };
+    return newEntry;
+  }
+
+  throw new Error(`Incorrect data: missing fields`);
+};
+
+export default {
+  toNewDiaryEntry,
+  toNewPatientEntry,
+};
