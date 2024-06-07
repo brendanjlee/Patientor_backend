@@ -20,13 +20,12 @@ const findById = (id: number): DiaryEntry | undefined => {
 };
 
 const addDiary = (entry: NewDiaryEntry): DiaryEntry => {
-  const newEntry = {
-    id: Math.max(...diaries.map((d) => d.id + 1)),
+  const newDiaryEntry = {
+    id: Math.max(...diaries.map((d) => d.id)) + 1,
     ...entry,
   };
-
-  diaries.push(newEntry);
-  return newEntry;
+  diaries.push(newDiaryEntry);
+  return newDiaryEntry;
 };
 
 export default {
