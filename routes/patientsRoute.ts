@@ -24,9 +24,9 @@ router.get("/:id", (req, res) => {
 
 router.post("/", (req: express.Request, res: express.Response) => {
   try {
-    const newPatientEntry = utils.toNewPatientEntry(req.body);
+    const newPatientEntry = utils.toNewPatient(req.body);
 
-    const addedPatientEntry = patientServices.addPatientEntry(newPatientEntry);
+    const addedPatientEntry = patientServices.addPatient(newPatientEntry);
     res.json(addedPatientEntry);
   } catch (err: unknown) {
     let errorMessage = "Something went wrong";
@@ -35,6 +35,15 @@ router.post("/", (req: express.Request, res: express.Response) => {
     }
     res.status(400).send(errorMessage);
   }
+});
+
+router.post("/:id/entries", (_req, res) => {
+  /*
+    1. convert req.body to newEntry Object - utils + types
+    2. add the newEntry object into data - service
+    3. send the newEntry object back
+  */
+  res.send("Post entry!");
 });
 
 export default router;

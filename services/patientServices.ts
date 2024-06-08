@@ -20,7 +20,7 @@ const getNonSensitivePatients = (): NonSensitivePatientEntry[] => {
   }));
 };
 
-const addPatientEntry = (patientEntry: NewPatientEntry): Patient => {
+const addPatient = (patientEntry: NewPatientEntry): Patient => {
   const _id: string = uuid(); // generate new id
   const newPatient = {
     id: _id,
@@ -34,5 +34,5 @@ export default {
   getPatient,
   getPatients,
   getNonSensitivePatients,
-  addPatientEntry,
+  addPatient,
 };

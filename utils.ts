@@ -102,7 +102,7 @@ const toNewDiaryEntry = (object: unknown): NewDiaryEntry => {
   throw new Error("Incorrect data: some fields are missing");
 };
 
-const toNewPatientEntry = (object: unknown): NewPatientEntry => {
+const toNewPatient = (object: unknown): NewPatientEntry => {
   if (!object || typeof object != "object") {
     throw new Error(`Incorrect or missing patient data: ${object}`);
   }
@@ -130,5 +130,5 @@ const toNewPatientEntry = (object: unknown): NewPatientEntry => {
 
 export default {
   toNewDiaryEntry,
-  toNewPatientEntry,
+  toNewPatient,
 };
