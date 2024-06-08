@@ -1,9 +1,9 @@
 import express from "express";
 import cors from "cors";
 
-import diaryRouter from "./routes/diaries";
-import diagnosisRouter from "./routes/diagnosis";
-import patientRouter from "./routes/patients";
+import diaryRouter from "./routes/diariesRoute";
+import diagnosisRouter from "./routes/diagnosisRoute";
+import patientRouter from "./routes/patientsRoute";
 
 const app = express();
 
