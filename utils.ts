@@ -4,7 +4,7 @@ import {
   NewDiaryEntry,
   Weather,
   Visibility,
-  NewPatientEntry,
+  NewPatient,
   Gender,
   Entry,
 } from "./types";
@@ -102,7 +102,7 @@ const toNewDiaryEntry = (object: unknown): NewDiaryEntry => {
   throw new Error("Incorrect data: some fields are missing");
 };
 
-const toNewPatient = (object: unknown): NewPatientEntry => {
+const toNewPatient = (object: unknown): NewPatient => {
   if (!object || typeof object != "object") {
     throw new Error(`Incorrect or missing patient data: ${object}`);
   }
@@ -114,7 +114,7 @@ const toNewPatient = (object: unknown): NewPatientEntry => {
     "gender" in object &&
     "occupation" in object
   ) {
-    const newEntry: NewPatientEntry = {
+    const newEntry: NewPatient = {
       name: parseStringEntry(object.name),
       dateOfBirth: parseDate(object.dateOfBirth),
       ssn: parseStringEntry(object.ssn),
