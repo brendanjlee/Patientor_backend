@@ -1,6 +1,7 @@
 import express from "express";
 import patientServices from "../services/patientServices";
-import utils from "../utils";
+import utils from "../utils/utils";
+import entryUtils from "../utils/entryUtils";
 
 const router = express.Router();
 
@@ -37,13 +38,24 @@ router.post("/", (req: express.Request, res: express.Response) => {
   }
 });
 
-router.post("/:id/entries", (_req, res) => {
+router.post("/:id/entries", (req, res) => {
   /*
     1. convert req.body to newEntry Object - utils + types
     2. add the newEntry object into data - service
     3. send the newEntry object back
   */
-  res.send("Post entry!");
+  try {
+    const patiendId = req.params.id;
+    const newEntry = entryUtils.toNewEntry(req.body); // parse request
+    const addedEntry = patientServices.addEntry(patiendId, newEntry);
+    res.json(addedEntry);
+  } catch (err: unknown) {
+    let errorMessage = "Error:";
+    if (err instanceof Error) {
+      errorMessage += err.message;
+    }
+    res.status(400).send(errorMessage);
+  }
 });
 
 export default router;
