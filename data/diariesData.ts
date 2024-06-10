@@ -1,5 +1,5 @@
 import { DiaryEntry } from "../types";
-import utils from "../utils";
+import utils from "../utils/utils";
 
 const data = [
   {
